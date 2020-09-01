@@ -1,0 +1,58 @@
+#include <iostream>
+#include "LinkedList.h"
+using namespace std;
+
+void travelList(node*, node*, node*);
+void printNodos(node*);
+
+int main(void){
+    node *nStart= nullptr;
+    node *nNode = nullptr;
+    node *nGerry = nullptr;
+
+    pushBack(T(6), &nStart);
+    pushBack(T(8), &nStart);
+    pushBack(T(15), &nStart);
+    pushBack(T(21), &nStart);
+    pushBack(T(10), &nStart);
+    pushBack(T(30), &nStart);
+
+    cout<<"List members: "<< nStart->info.data;
+    travelList(nStart,nNode, nGerry);
+
+
+    
+    return 0;
+}
+
+
+void travelList(node* list,  node* listPares,node* listImpares) {
+    
+    int cantPares = 0;
+    int cantImpares=0;
+
+    
+    if(list){
+        cout << list->info.data << "," << list->info.c << "  ";
+        if(list->info.data % 2 == 0){
+            pushBack(T(list->info.data), &listPares);
+            cantPares++;
+        }else{
+            pushBack(T(list->info.data), &listImpares);
+            cantImpares++;
+        }
+        travelList(list->next, listPares, listImpares);
+    }else{
+        cout << "Pares: "; printNodos(listPares);
+        cout<<"Impares: "; printNodos(listImpares);
+    }
+
+}
+
+void printNodos(node* print){
+
+    if(print){
+        cout<< print->info.data << " "; 
+        printNodos(print->next);
+    }
+}
